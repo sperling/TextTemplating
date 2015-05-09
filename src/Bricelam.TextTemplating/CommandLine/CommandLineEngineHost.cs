@@ -72,6 +72,7 @@ namespace Bricelam.TextTemplating.CommandLine
                 if (metadataFileReference != null)
                 {
                     references.Add(MetadataReference.CreateFromFile(metadataFileReference.Path));
+                    continue;
                 }
 
                 throw new Exception("Unexpected metadata reference type. " + assemblyReference);
