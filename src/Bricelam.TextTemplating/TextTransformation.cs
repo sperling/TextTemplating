@@ -13,7 +13,7 @@ namespace Bricelam.TextTemplating
 
         }
 
-        public string PopIdent() => null;
+        public string PopIndent() => null;
         public ITextTemplatingEngineHost Host { get; set; }
 
         public abstract string TransformText();

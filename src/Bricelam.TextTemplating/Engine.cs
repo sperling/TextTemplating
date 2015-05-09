@@ -20,7 +20,7 @@ namespace Bricelam.TextTemplating
         {
             var result = new Parser(host).Parse(content);
             language = result.Language;
-            references = result.References.ToArray();
+            references = result.References.Distinct().ToArray();
 
             return new PreprocessTextTransformation(className, classNamespace, result, host).TransformText();
         }

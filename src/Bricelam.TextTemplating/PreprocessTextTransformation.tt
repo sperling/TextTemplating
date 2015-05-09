@@ -1,5 +1,6 @@
 ﻿<#@ template visibility="internal" #>
 <#@ import namespace="Bricelam.TextTemplating.Parsing" #>
+<#@ import namespace="System.Linq" #>
 <#
     foreach (var import in _result.Imports)
     {

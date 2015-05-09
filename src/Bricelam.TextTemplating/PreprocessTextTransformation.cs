@@ -1,5 +1,6 @@
 ﻿using System;
 using Bricelam.TextTemplating.Parsing;
+using System.Linq;
 
 namespace Bricelam.TextTemplating
 {
@@ -7,7 +8,7 @@ namespace Bricelam.TextTemplating
     {
         public override string TransformText()
         {
-            foreach (var import in _result.Imports)
+            foreach (var import in _result.Imports.Distinct())
             {
                 Write("using ");
                 Write((import).ToString());
