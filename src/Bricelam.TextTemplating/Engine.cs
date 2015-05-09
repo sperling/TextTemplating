@@ -63,7 +63,7 @@ namespace Bricelam.TextTemplating
                     .Invoke(null, new[] { stream.ToArray() });
                 var transformationType = transformationAssembly.GetType(classNamespace + "." + className);
                 var transformation = Activator.CreateInstance(transformationType);
-                transformationType.GetTypeInfo().GetDeclaredProperty("Host").SetValue(transformation, host);
+                transformationType.GetTypeInfo().BaseType.GetTypeInfo().GetDeclaredProperty("Host").SetValue(transformation, host);
                 var transformMethod = transformationType.GetTypeInfo().GetDeclaredMethod("TransformText");
 
                 return (string)transformMethod.Invoke(transformation, null);
