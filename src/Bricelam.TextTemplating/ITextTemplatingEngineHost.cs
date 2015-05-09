@@ -14,5 +14,7 @@ namespace Bricelam.TextTemplating
         MetadataReference ResolveAssemblyReference(string assemblyReference);
         void SetFileExtension(string extension);
         void SetOutputEncoding(Encoding encoding, bool fromOutputDirective);
+        string TemplateFile { get; }
+        string LoadIncludeFile(string fileName);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -15,10 +16,12 @@ namespace Bricelam.TextTemplating.CommandLine
         private readonly ILibraryManager _libraryManager;
         private string _fileExtension = ".cs";
         private Encoding _encoding;
-        
-        public CommandLineEngineHost(ILibraryManager libraryManager)
+        private readonly string _templateFile;
+
+        public CommandLineEngineHost(ILibraryManager libraryManager, string templateFile)
         {
             _libraryManager = libraryManager;
+            _templateFile = templateFile;
         }
 
         public string FileExtension => _fileExtension;
@@ -39,6 +42,8 @@ namespace Bricelam.TextTemplating.CommandLine
             "System",
             "Bricelam.TextTemplating"
         };
+
+        public string TemplateFile => _templateFile;
 
         public void LogErrors(EmitResult result)
         {
@@ -70,5 +75,15 @@ namespace Bricelam.TextTemplating.CommandLine
         
         public void SetFileExtension(string extension) => _fileExtension = extension;        
         public void SetOutputEncoding(Encoding encoding, bool fromOutputDirective) => _encoding = encoding;
+
+        public string LoadIncludeFile(string fileName)
+        {
+            if (Path.IsPathRooted(fileName))
+            {
+                return File.ReadAllText(fileName);
+            }
+
+            return File.ReadAllText(Path.Combine(Path.GetDirectoryName(TemplateFile), fileName));
+        }
     }
 }

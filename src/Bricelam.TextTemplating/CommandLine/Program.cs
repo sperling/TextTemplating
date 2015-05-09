@@ -47,7 +47,7 @@ namespace Bricelam.TextTemplating.CommandLine
             foreach (var template in templates)
             {
                 Console.WriteLine("Processing '{0}'...", template);
-                var host = new CommandLineEngineHost(_libraryManager);
+                var host = new CommandLineEngineHost(_libraryManager, template);
                 var fileName = Path.GetFileNameWithoutExtension(template);
                 var content = File.ReadAllText(template);
 

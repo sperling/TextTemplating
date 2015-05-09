@@ -11,7 +11,7 @@ namespace Bricelam.TextTemplating
         {
             var engine = new Engine();
             var libraryManager = CallContextServiceLocator.Locator.ServiceProvider.GetService<ILibraryManager>();
-            var host = new CommandLineEngineHost(libraryManager);
+            var host = new CommandLineEngineHost(libraryManager, "service");
 
             return engine.ProcessTemplate(content, host);
         }

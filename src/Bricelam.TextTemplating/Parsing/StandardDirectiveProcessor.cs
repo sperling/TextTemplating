@@ -9,6 +9,8 @@ namespace Bricelam.TextTemplating.Parsing
         private readonly ParseResult _result;
         private readonly ICollection<string> _references = new List<string>();
         private readonly ICollection<string> _imports = new List<string>();
+        private readonly ICollection<IncludeFile> _includeFiles = new List<IncludeFile>();
+
         private ITextTemplatingEngineHost _host;
 
         public StandardDirectiveProcessor(ParseResult result)
@@ -25,7 +27,8 @@ namespace Bricelam.TextTemplating.Parsing
             directiveName == "template"
                 || directiveName == "output"
                 || directiveName == "assembly"
-                || directiveName == "import";
+                || directiveName == "import"
+                || directiveName == "include";
 
         public override void ProcessDirective(string directiveName, IDictionary<string, string> arguments)
         {
@@ -72,10 +75,23 @@ namespace Bricelam.TextTemplating.Parsing
                         _imports.Add(@namespace);
                     }
                     break;
+
+                case "include":
+                    string file;
+                    if (arguments.TryGetValue("file", out file))
+                    {
+                        string onceArgument;
+                        arguments.TryGetValue("once", out onceArgument);
+                        bool once;
+                        bool.TryParse(onceArgument, out once);
+                        _includeFiles.Add(new IncludeFile(file, once));
+                    }
+                    break;
             }
         }
 
         public override string[] GetReferencesForProcessingRun() => _references.ToArray();
         public override string[] GetImportsForProcessingRun() => _imports.ToArray();
+        public override IncludeFile[] GetIncludeFilesForProcessingRun() => _includeFiles.ToArray();
     }
 }

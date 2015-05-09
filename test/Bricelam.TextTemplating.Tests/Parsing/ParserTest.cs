@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Bricelam.TextTemplating.TestUtilities;
 using Xunit;
+using System.Linq;
 
 namespace Bricelam.TextTemplating.Parsing
 {
@@ -9,7 +10,7 @@ namespace Bricelam.TextTemplating.Parsing
         [Fact]
         public void Parse_works_when_empty()
         {
-            var result = CreateParser().Parse(string.Empty);
+            var result = TestEngineHost.CreateParser().Parse(string.Empty);
 
             Assert.Empty(result.ContentBlocks);
             Assert.Empty(result.FeatureBlocks);
@@ -20,7 +21,7 @@ namespace Bricelam.TextTemplating.Parsing
         {
             var content = "Text block";
 
-            var result = CreateParser().Parse(content);
+            var result = TestEngineHost.CreateParser().Parse(content);
 
             Assert.Collection(
                 result.ContentBlocks,
@@ -39,16 +40,33 @@ namespace Bricelam.TextTemplating.Parsing
 
             var content = "<#@ template visibility=\"internal\" #>";
 
-            var result = CreateParser().Parse(content);
+            var result = TestEngineHost.CreateParser().Parse(content);
 
             Assert.Equal("internal", result.Visibility);
             Assert.Empty(result.ContentBlocks);
             Assert.Empty(result.FeatureBlocks);
         }
 
-        private static Parser CreateParser()
+        [Fact]
+        public void Parse_works_when_include_directive()
         {
-            return new Parser(new TestEngineHost());
+            var content = "<#@ include file=\"test\" #>";
+
+            var result = TestEngineHost.CreateParser("Hello World").Parse(content);
+
+            Assert.Equal(1, result.ContentBlocks.Count);
+            Assert.Equal("Hello World", result.ContentBlocks.First().Content);          
         }
+
+        [Fact]
+        public void Parse_works_when_include_directive_once()
+        {
+            var content = "<#@ include file=\"test\" once=\"true\" #>";
+
+            var result = TestEngineHost.CreateParser("Hello World").Parse(content);
+
+            Assert.Equal(1, result.ContentBlocks.Count);
+            Assert.Equal("Hello World", result.ContentBlocks.First().Content);
+        }        
     }
 }
