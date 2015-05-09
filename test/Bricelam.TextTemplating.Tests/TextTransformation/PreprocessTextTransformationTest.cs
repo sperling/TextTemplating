@@ -16,7 +16,7 @@ namespace Bricelam.TextTemplating.Tests.TextTransformation
 
             var parseResult = TestEngineHost.CreateParser("Hello World").Parse(content);
 
-            var result = new PreprocessTextTransformation("Test", "Bar", parseResult).TransformText();
+            var result = new PreprocessTextTransformation("Test", "Bar", parseResult, null).TransformText();
             Assert.Equal("\r\nnamespace Bar\r\n{\r\n    public partial class Test : TextTransformation\r\n    {\r\n        public override string TransformText()\r\n        {\r\n            Write(\"Hello World\");\r\n            Write(\"\\\\nFrom root\");\r\n\r\n            return GenerationEnvironment.ToString();\r\n        }\r\n\r\n    }\r\n}\r\n", result);
         }
     }

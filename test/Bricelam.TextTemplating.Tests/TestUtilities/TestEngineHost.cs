@@ -50,5 +50,10 @@ namespace Bricelam.TextTemplating.TestUtilities
         {
             return new Parser(new TestEngineHost(includeFileContent));
         }
+
+        public string ResolvePath(string path)
+        {
+            return path;
+        }
     }
 }

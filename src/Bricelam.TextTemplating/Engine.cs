@@ -22,7 +22,7 @@ namespace Bricelam.TextTemplating
             language = result.Language;
             references = result.References.ToArray();
 
-            return new PreprocessTextTransformation(className, classNamespace, result).TransformText();
+            return new PreprocessTextTransformation(className, classNamespace, result, host).TransformText();
         }
 
         public string ProcessTemplate(string content, ITextTemplatingEngineHost host)
@@ -63,6 +63,7 @@ namespace Bricelam.TextTemplating
                     .Invoke(null, new[] { stream.ToArray() });
                 var transformationType = transformationAssembly.GetType(classNamespace + "." + className);
                 var transformation = Activator.CreateInstance(transformationType);
+                transformationType.GetTypeInfo().GetDeclaredProperty("Host").SetValue(transformation, host);
                 var transformMethod = transformationType.GetTypeInfo().GetDeclaredMethod("TransformText");
 
                 return (string)transformMethod.Invoke(transformation, null);

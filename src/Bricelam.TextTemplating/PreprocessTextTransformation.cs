@@ -47,11 +47,12 @@ namespace Bricelam.TextTemplating
         private readonly string _classNamespace;
         private readonly ParseResult _result;
 
-        public PreprocessTextTransformation(string className, string classNamespace, ParseResult result)
+        public PreprocessTextTransformation(string className, string classNamespace, ParseResult result, ITextTemplatingEngineHost host)
         {
             _className = className;
             _classNamespace = classNamespace;
             _result = result;
+            Host = host;
         }
 
         private string Render(Block block)

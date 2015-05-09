@@ -16,5 +16,6 @@ namespace Bricelam.TextTemplating
         void SetOutputEncoding(Encoding encoding, bool fromOutputDirective);
         string TemplateFile { get; }
         string LoadIncludeFile(string fileName);
+        string ResolvePath(string path);
     }
 }

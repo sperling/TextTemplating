@@ -85,5 +85,15 @@ namespace Bricelam.TextTemplating.CommandLine
 
             return File.ReadAllText(Path.Combine(Path.GetDirectoryName(TemplateFile), fileName));
         }
+
+        public string ResolvePath(string path)
+        {
+            if (Path.IsPathRooted(path))
+            {
+                return path;
+            }
+
+            return Path.Combine(Path.GetDirectoryName(TemplateFile), path);
+        }
     }
 }
