@@ -44,7 +44,7 @@ namespace Bricelam.TextTemplating
             var compilation = CSharpCompilation.Create(
                 assemblyName,
                 new[] { SyntaxFactory.ParseSyntaxTree(transformationText) },
-                references.Select(host.ResolveAssemblyReference),
+                references.SelectMany(host.ResolveAssemblyReference),
                 new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
             using (var stream = new MemoryStream())

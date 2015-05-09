@@ -56,21 +56,28 @@ namespace Bricelam.TextTemplating.CommandLine
             }
         }
 
-        public MetadataReference ResolveAssemblyReference(string assemblyReference)
+        public IList<MetadataReference> ResolveAssemblyReference(string assemblyReference)
         {
-            var metadataReference = _libraryManager.GetLibraryExport(assemblyReference).MetadataReferences.First();
-            var roslynMetadataReference = metadataReference as IRoslynMetadataReference;
-            if (roslynMetadataReference != null)
+            var references = new List<MetadataReference>();
+
+            foreach (var metadataReference in _libraryManager.GetLibraryExport(assemblyReference).MetadataReferences)
             {
-                return roslynMetadataReference.MetadataReference;
+                var roslynMetadataReference = metadataReference as IRoslynMetadataReference;
+                if (roslynMetadataReference != null)
+                {
+                    references.Add(roslynMetadataReference.MetadataReference);
+                    continue;
+                }
+                var metadataFileReference = metadataReference as IMetadataFileReference;
+                if (metadataFileReference != null)
+                {
+                    references.Add(MetadataReference.CreateFromFile(metadataFileReference.Path));
+                }
+
+                throw new Exception("Unexpected metadata reference type. " + assemblyReference);
             }
-            var metadataFileReference  = metadataReference as IMetadataFileReference ;
-            if (metadataFileReference != null)
-            {
-                return MetadataReference.CreateFromFile(metadataFileReference.Path);
-            }
-            
-            throw new Exception("Unexpected metadata reference type.");
+
+            return references;
         }
         
         public void SetFileExtension(string extension) => _fileExtension = extension;        

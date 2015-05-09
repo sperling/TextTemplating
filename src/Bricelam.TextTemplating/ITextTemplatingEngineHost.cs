@@ -11,7 +11,7 @@ namespace Bricelam.TextTemplating
         IList<string> StandardImports { get; }
 
         void LogErrors(EmitResult result);
-        MetadataReference ResolveAssemblyReference(string assemblyReference);
+        IList<MetadataReference> ResolveAssemblyReference(string assemblyReference);
         void SetFileExtension(string extension);
         void SetOutputEncoding(Encoding encoding, bool fromOutputDirective);
         string TemplateFile { get; }

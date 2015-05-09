@@ -36,7 +36,7 @@ namespace Bricelam.TextTemplating.TestUtilities
         {
         }
 
-        public MetadataReference ResolveAssemblyReference(string assemblyReference) => MetadataReference.CreateFromFile(assemblyReference);
+        public IList<MetadataReference> ResolveAssemblyReference(string assemblyReference) => null;
 
         public void SetFileExtension(string extension)
         {
