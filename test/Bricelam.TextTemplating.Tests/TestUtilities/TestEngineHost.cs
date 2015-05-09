@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Emit;
 
 namespace Bricelam.TextTemplating.TestUtilities
@@ -14,7 +15,7 @@ namespace Bricelam.TextTemplating.TestUtilities
         {
         }
 
-        public string ResolveAssemblyReference(string assemblyReference) => assemblyReference;
+        public MetadataReference ResolveAssemblyReference(string assemblyReference) => MetadataReference.CreateFromFile(assemblyReference);
 
         public void SetFileExtension(string extension)
         {
