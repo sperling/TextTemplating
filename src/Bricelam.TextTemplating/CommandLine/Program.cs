@@ -20,7 +20,7 @@ namespace Bricelam.TextTemplating.CommandLine
 
         public int Main(string[] args)
         {
-            var app = new CommandLineApplication();
+            var app = new CommandLineApplication(throwOnUnexpectedArg: false);
             var preprocess = app.Option(
                 "-p|--preprocess",
                 "Create a run-time text template",
