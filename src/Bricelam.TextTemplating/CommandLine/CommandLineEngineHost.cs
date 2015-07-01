@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Emit;
 using Microsoft.Framework.Runtime;
+using Microsoft.Framework.Runtime.Compilation;
 using Microsoft.Framework.Runtime.Roslyn;
 
 namespace Bricelam.TextTemplating.CommandLine

@@ -2,17 +2,17 @@
     "version": "1.0.0-*",
     "dependencies": {
         "Microsoft.CodeAnalysis.CSharp": "1.0.0-*",
-        "Microsoft.Framework.CommandLineUtils": "1.0.0-beta4",
-        "Microsoft.Framework.DependencyInjection.Interfaces": "1.0.0-beta4",
-        "Microsoft.Framework.FileSystemGlobbing": "1.0.0-beta4",
-        "Microsoft.Framework.Runtime.Interfaces": "1.0.0-beta4",
-        "Microsoft.Framework.Runtime.Roslyn": "1.0.0-beta4"
+        "Microsoft.Framework.CommandLineUtils.Sources": "1.0.0-beta5", 
+        "Microsoft.Framework.DependencyInjection.Abstractions": "1.0.0-beta5",
+        "Microsoft.Framework.FileSystemGlobbing": "1.0.0-beta5",
+        "Microsoft.Framework.Runtime.Abstractions": "1.0.0-beta5",
+        "Microsoft.Framework.Runtime.Roslyn": "1.0.0-beta5"
     },
     "frameworks": {
         "dnx451": {
             "frameworkAssemblies": {
                 "System.IO": "4.0.0.0",
-                "System.Runtime": "4.0.0.0",
+                "System.Runtime": "4.0.10.0",
                 "System.Text.Encoding": "4.0.0.0",
                 "System.Threading.Tasks": "4.0.0.0"
             }
